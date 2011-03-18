@@ -2,21 +2,20 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-    <groupId>at.struct.devtools.cdi.interdyn</groupId>
-    <artifactId>interdyn</artifactId>
+    <groupId>at.struct.devtools.cdi.invomon</groupId>
+    <artifactId>invomon</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-    <name>InterDyn</name>
+    <name>InvoMon</name>
     <description>
-        InterDyn is a JSR-299 Extension and can be used for dynamically
-        enable a CDI Interceptor for a set of classses.
-        This could e.g be used for tracking/logging all invocations
-        to .*ServiceImpl classes in a project.
+        InvoMon is a Interceptor framenwork for Invocation Monitoring.
+        The mechanism is similar to JaMon but uses JSR-299 interceptors
+        and is therefore not bound to interfaces only.
     </description>
 
     <scm>
-        <connection>scm:git:git://TODO</connection>
-        <developerConnection>scm:git:TODO</developerConnection>
+        <connection>scm:git:git://git@github.com:struberg/InterDyn.git</connection>
+        <developerConnection>scm:git:git://git@github.com:struberg/InterDyn.git</developerConnection>
     </scm>
 
     <properties>
@@ -26,6 +25,12 @@
 
 
     <dependencies>
+        <dependency>
+            <groupId>at.struct.devtools.cdi.interdyn</groupId>
+            <artifactId>interdyn</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+ 
         <dependency>
             <groupId>org.apache.geronimo.specs</groupId>
             <artifactId>geronimo-atinject_1.0_spec</artifactId>

@@ -1,0 +1,5 @@
+<beans>
+    <interceptors>
+        <class>at.struct.devtools.cdi.invomon.InvocationMonitorInterceptor</class>
+    </interceptors>
+</beans>
