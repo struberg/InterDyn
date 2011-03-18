@@ -1,0 +1,2 @@
+# register our interdyn extension
+at.struct.devtools.cdi.interdyn.InterDynExtension
