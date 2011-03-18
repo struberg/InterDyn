@@ -145,6 +145,7 @@ public class InterDynExtension implements Extension
                         wrappedAnnotatedType = new WrappedAnnotatedType(at);
                     }
                     wrappedAnnotatedType.getAnnotations().add(rule.getInterceptorBinding());
+                    logger.info("Adding Dynamic Interceptor " + rule.getInterceptorBinding() + " to class " + beanClassName );
                 }
             }
             if (wrappedAnnotatedType != null)
