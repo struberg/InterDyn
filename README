@@ -1,0 +1,28 @@
+JSR-299 Extension for Dynamic Interceptor enablement
+
+Building
+----------
+
+$> cd interdyn
+$> mvn clean install
+
+
+Usage
+----------
+
+Just place this jar into your classpath and add a
+configuration for it by creating a file
+
+META-INF/struct/interdyn.properties
+
+which contains something like the following content
+
+# start of interdyn.properties
+enabled=true
+rule.1.match=at.struct.devtools.cdi.interdyn.test.domainobjects.*
+rule.1.interceptor=at.struct.devtools.cdi.interdyn.test.TestInterceptorAnnotation
+#  end of interdyn.properties
+
+the match section contains the classes which should get intercepted
+and the interceptor section contains the name of the interceptor BindingType
+annotation.
