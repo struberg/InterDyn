@@ -61,7 +61,7 @@ public class InvocationResultLogger
         for (int i=1; i < MAX_LOG_LINES && i< methodInvocations.size(); i++)
         {
             ResultEntry re = methodInvocations.get(methodInvocations.size() - i);
-            sb.append("  dur[ms]: ").append(re.getDuration()/1e6f).append(" count: ").append(re.getCount()).append("\t").append(re.getToken()).append("\n");
+            sb.append("  dur[ms]: ").append(re.getDuration()/1e6f).append("\tcount: ").append(re.getCount()).append("\t").append(re.getToken()).append("\n");
         }
         logger.info(sb.toString());
     }
