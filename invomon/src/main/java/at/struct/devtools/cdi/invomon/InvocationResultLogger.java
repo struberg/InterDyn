@@ -44,7 +44,7 @@ public class InvocationResultLogger
     private static final int DEFAULT_MAX_LOG_LINES = 8;
     private static final String  PROPERTY_MAX_LOG_LINES = "MAX_LOG_LINES";
 
-    private int maxLogLines = DEFAULT_MAX_LOG_LINES;
+    private int maxLogLines = DEFAULT_MAX_LOG_LINES +1;
 
     @PostConstruct
     private void init()
@@ -52,7 +52,7 @@ public class InvocationResultLogger
         String maxLogLinesProp = System.getProperty(PROPERTY_MAX_LOG_LINES);
         if (maxLogLinesProp != null)
         {
-            maxLogLines = Integer.parseInt(maxLogLinesProp);
+            maxLogLines = Integer.parseInt(maxLogLinesProp) +1;
         }
 
         logger.info("Using MAX_LOG_LINE=" + maxLogLines);

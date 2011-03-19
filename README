@@ -1,13 +1,12 @@
-JSR-299 Extension for Dynamic Interceptor enablement
+JSR-299 Extension for enabling Interceptors Dynamically
 
 Building
 ----------
 
-$> cd interdyn
 $> mvn clean install
 
 
-Usage
+InterDyn Usage
 ----------
 
 Just place this jar into your classpath and add a
@@ -21,8 +20,57 @@ which contains something like the following content
 enabled=true
 rule.1.match=at.struct.devtools.cdi.interdyn.test.domainobjects.*
 rule.1.interceptor=at.struct.devtools.cdi.interdyn.test.TestInterceptorAnnotation
+rule.2.match=.*ServiceImpl
+rule.2.interceptor=at.struct.devtools.cdi.invomon.InvocationMonitored
 #  end of interdyn.properties
 
-the match section contains the classes which should get intercepted
+The match section contains the reg exp of the classes which should get intercepted
 and the interceptor section contains the name of the interceptor BindingType
 annotation.
+
+
+Invocation Monitor example
+--------------------------
+
+This is a fully functional (but still rudimentary) logging Interceptor which
+can be used by InterDyn. It will count all your observed class and 
+method invocations and also take the duration period.
+
+The top values will be logged (Level.INFO) at the end of each servlet request.
+
+
+Configuration
+-------------
+
+The maximum numbers of log lines might be configured with a system property:
+
+-DMAX_LOG_LINES=15
+
+
+Example
+-------
+
+A sample output looks like the following:
+
+2011-03-19 12:36:27,291 [2046767960@qtp-1243908618-9]  INFO  invomon.InvocationResultLogger Top Class Invocations:
+  count: 51	at.struct.myproject.core.be.semester.SemesterRemoteServiceImpl
+  count: 21	at.struct.myproject.core.be.security.service.SecurityServiceImpl
+  count: 5	at.struct.myproject.util.be.config.ConfigServiceImpl
+  count: 2	at.struct.myproject.course.be.CourseServiceImpl
+  count: 1	at.struct.myproject.events.be.EventServiceImpl
+  count: 1	at.struct.myproject.core.be.persons.PersonRemoteServiceImpl
+  count: 1	at.struct.myproject.course.be.LecturerServiceImpl
+  count: 1	at.struct.myproject.events.be.EventRemoteServiceImpl
+
+2011-03-19 12:36:27,292 [2046767960@qtp-1243908618-9]  INFO  invomon.InvocationResultLogger Top Method Invocations:
+  dur[ms]: 442.48096	count: 1	at.struct.myproject.course.be.CourseServiceImpl#deleteCourse
+  dur[ms]: 349.34717	count: 1	at.struct.myproject.course.be.CourseServiceImpl#getByFilter
+  dur[ms]: 104.53423	count: 1	at.struct.myproject.events.be.EventRemoteServiceImpl#getEvent
+  dur[ms]: 100.43162	count: 1	at.struct.myproject.events.be.EventServiceImpl#getEvent
+  dur[ms]: 24.677048	count: 1	at.struct.myproject.course.be.LecturerServiceImpl#getEmployeeIdsInvolvedInOrgUnitCourses
+  dur[ms]: 1.596834	count: 1	at.struct.myproject.core.be.persons.PersonRemoteServiceImpl#getByEmployeeIdList
+  dur[ms]: 0.892522	count: 51	at.struct.myproject.core.be.semester.SemesterRemoteServiceImpl#getCorrespondingSemesterCode
+  dur[ms]: 0.288455	count: 5	at.struct.myproject.util.be.config.ConfigServiceImpl#getStringProperty
+  dur[ms]: 0.248038	count: 3	at.struct.myproject.core.be.security.service.SecurityServiceImpl#isGranted
+  dur[ms]: 0.203102	count: 18	at.struct.myproject.core.be.security.service.SecurityServiceImpl#isAuthenticated
+
