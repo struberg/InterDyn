@@ -18,6 +18,8 @@
  */
 package at.struct.devtools.cdi.invomon;
 
+import javax.annotation.PostConstruct;
+import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -34,11 +36,27 @@ import java.util.logging.Logger;
  * and log them accordingly
  * @author <a href="mailto:struberg@yahoo.de">Mark Struberg</a>
  */
+@ApplicationScoped
 public class InvocationResultLogger
 {
     private static final Logger logger = Logger.getLogger(InvocationResultLogger.class.getName());
 
-    private static final int MAX_LOG_LINES = 8;
+    private static final int DEFAULT_MAX_LOG_LINES = 8;
+    private static final String  PROPERTY_MAX_LOG_LINES = "MAX_LOG_LINES";
+
+    private int maxLogLines = DEFAULT_MAX_LOG_LINES;
+
+    @PostConstruct
+    private void init()
+    {
+        String maxLogLinesProp = System.getProperty(PROPERTY_MAX_LOG_LINES);
+        if (maxLogLinesProp != null)
+        {
+            maxLogLines = Integer.parseInt(maxLogLinesProp);
+        }
+
+        logger.info("Using MAX_LOG_LINE=" + maxLogLines);
+    }
 
     public void logMonitorResultEvents(@Observes MonitorResultEvent mre)
     {
@@ -49,7 +67,7 @@ public class InvocationResultLogger
 
         StringBuilder sb = new StringBuilder();
         sb.append("Top Class Invocations:\n");
-        for (int i=1; i < MAX_LOG_LINES && i< classInvocations.size(); i++)
+        for (int i=1; i < maxLogLines && i< classInvocations.size(); i++)
         {
             ResultEntry re = classInvocations.get(classInvocations.size() - i);
             sb.append("  count: ").append(re.getCount()).append("\t").append(re.getToken()).append("\n");
@@ -58,7 +76,7 @@ public class InvocationResultLogger
 
         sb = new StringBuilder();
         sb.append("Top Method Invocations:\n");
-        for (int i=1; i < MAX_LOG_LINES && i< methodInvocations.size(); i++)
+        for (int i=1; i < maxLogLines && i< methodInvocations.size(); i++)
         {
             ResultEntry re = methodInvocations.get(methodInvocations.size() - i);
             sb.append("  dur[ms]: ").append(re.getDuration()/1e6f).append("\tcount: ").append(re.getCount()).append("\t").append(re.getToken()).append("\n");
