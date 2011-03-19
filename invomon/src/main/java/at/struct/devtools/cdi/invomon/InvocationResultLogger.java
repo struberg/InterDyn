@@ -26,6 +26,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.logging.Logger;
 
 /**
@@ -43,15 +44,15 @@ public class InvocationResultLogger
     {
         // we copy them because we don't like to make the event data dirty.
         // there might be other observers interested in the result...
-        List<ResultEntry> methodInvocations = createResultEntries(mre.getMethodInvocations());
-        List<ResultEntry> classInvocations  = createResultEntries(mre.getClassInvocations());
+        List<ResultEntry> methodInvocations = createMethodResultEntries(mre.getMethodInvocations(), mre.getMethodDurations());
+        List<ResultEntry> classInvocations  = createClassResultEntries(mre.getClassInvocations());
 
         StringBuilder sb = new StringBuilder();
         sb.append("Top Class Invocations:\n");
         for (int i=1; i < MAX_LOG_LINES && i< classInvocations.size(); i++)
         {
             ResultEntry re = classInvocations.get(classInvocations.size() - i);
-            sb.append("  ").append(re.getCount()).append("\t").append(re.getToken()).append("\n");
+            sb.append("  count: ").append(re.getCount()).append("\t").append(re.getToken()).append("\n");
         }
         logger.info(sb.toString());
 
@@ -60,19 +61,37 @@ public class InvocationResultLogger
         for (int i=1; i < MAX_LOG_LINES && i< methodInvocations.size(); i++)
         {
             ResultEntry re = methodInvocations.get(methodInvocations.size() - i);
-            sb.append("  ").append(re.getCount()).append("\t").append(re.getToken()).append("\n");
+            sb.append("  dur[ms]: ").append(re.getDuration()/1e6f).append(" count: ").append(re.getCount()).append("\t").append(re.getToken()).append("\n");
         }
         logger.info(sb.toString());
     }
 
 
-    private List<ResultEntry> createResultEntries(Map<String, AtomicInteger> invocations)
+    private List<ResultEntry> createMethodResultEntries(Map<String, AtomicInteger> invocations,
+                                                        Map<String, AtomicLong>    durations)
+    {
+        List<ResultEntry> resultEntries = new ArrayList<ResultEntry>(invocations.size());
+
+
+
+        for (Map.Entry<String, AtomicInteger> entry : invocations.entrySet())
+        {
+            long dur = durations.get(entry.getKey()).longValue();
+            resultEntries.add(new ResultEntry(entry.getValue().intValue(), entry.getKey(), dur));
+        }
+
+        Collections.sort(resultEntries);
+
+        return resultEntries;
+    }
+
+    private List<ResultEntry> createClassResultEntries(Map<String, AtomicInteger> invocations)
     {
         List<ResultEntry> resultEntries = new ArrayList<ResultEntry>(invocations.size());
 
         for (Map.Entry<String, AtomicInteger> entry : invocations.entrySet())
         {
-            resultEntries.add(new ResultEntry(entry.getValue().intValue(), entry.getKey()));
+            resultEntries.add(new ResultEntry(entry.getValue().intValue(), entry.getKey(), 0L));
         }
 
         Collections.sort(resultEntries);
@@ -83,12 +102,14 @@ public class InvocationResultLogger
     private static class ResultEntry implements Comparable<ResultEntry>
     {
         private Integer count;
-        private String token;
+        private String  token;
+        private long    duration;
 
-        private ResultEntry(Integer count, String token)
+        private ResultEntry(Integer count, String token, long duration)
         {
             this.count = count;
             this.token = token;
+            this.duration = duration;
         }
 
         public Integer getCount()
@@ -101,9 +122,19 @@ public class InvocationResultLogger
             return token;
         }
 
+        public long getDuration()
+        {
+            return duration;
+        }
+
         public int compareTo(ResultEntry o)
         {
-            return count.compareTo(o.count);
+            if (duration == 0 && o.duration == 0)
+            {
+                return count.compareTo(o.count);
+            }
+
+            return duration<o.duration ? -1 : (duration==o.duration ? 0 : 1);
         }
     }
 }

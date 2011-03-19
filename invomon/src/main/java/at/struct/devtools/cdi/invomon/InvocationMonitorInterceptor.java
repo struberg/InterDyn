@@ -35,8 +35,12 @@ public class InvocationMonitorInterceptor
     @AroundInvoke
     public Object authorize(InvocationContext ic) throws Exception
     {
-        requestInvocationCounter.count(ic.getTarget().getClass().getName(), ic.getMethod().getName());
-        return ic.proceed();
+        long start = System.nanoTime();
+        Object retVal = ic.proceed();
+        long end = System.nanoTime();
+        requestInvocationCounter.count(ic.getTarget().getClass().getName(), ic.getMethod().getName(), end - start);
+
+        return retVal;
     }
 
 }

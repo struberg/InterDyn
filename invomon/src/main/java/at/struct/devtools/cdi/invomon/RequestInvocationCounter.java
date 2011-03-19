@@ -18,7 +18,6 @@
  */
 package at.struct.devtools.cdi.invomon;
 
-import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.event.Event;
@@ -26,7 +25,7 @@ import javax.inject.Inject;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.logging.Logger;
+import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * This bean will get used to count invocations for a single request
@@ -40,7 +39,7 @@ public class RequestInvocationCounter
     @PreDestroy
     public void postUsage()
     {
-        mre.fire(new MonitorResultEvent(methodInvocations, classInvocations));
+        mre.fire(new MonitorResultEvent(methodInvocations, classInvocations, methodDurations));
     }
 
 
@@ -52,6 +51,13 @@ public class RequestInvocationCounter
     private Map<String, AtomicInteger> methodInvocations = new HashMap<String, AtomicInteger>();
 
     /**
+     * Duration of all method invocations
+     * key = fully qualified method name (includes class)
+     * value = Integer with value
+     */
+    private Map<String, AtomicLong> methodDurations = new HashMap<String, AtomicLong>();
+
+    /**
      * Counter for all class invocations
      * key = fully qualified class name
      * value = Integer with value
@@ -59,7 +65,13 @@ public class RequestInvocationCounter
     private Map<String, AtomicInteger> classInvocations  = new HashMap<String, AtomicInteger>();
 
 
-    public void count(String className, String methodName)
+    /**
+     * increment the respective counters
+     * @param className
+     * @param methodName
+     * @param duration
+     */
+    public void count(String className, String methodName, long duration)
     {
         AtomicInteger classCount = classInvocations.get(className);
         if (classCount == null)
@@ -71,6 +83,7 @@ public class RequestInvocationCounter
 
 
         String methodKey = className + "#" + methodName;
+
         AtomicInteger methCount = methodInvocations.get(methodKey);
         if (methCount == null)
         {
@@ -78,16 +91,13 @@ public class RequestInvocationCounter
             methodInvocations.put(methodKey, methCount);
         }
         methCount.incrementAndGet();
-    }
 
-
-    public Map<String, AtomicInteger> getMethodInvocations()
-    {
-        return methodInvocations;
-    }
-
-    public Map<String, AtomicInteger> getClassInvocations()
-    {
-        return classInvocations;
+        AtomicLong methDur = methodDurations.get(methodKey);
+        if (methDur == null)
+        {
+            methDur = new AtomicLong(0);
+            methodDurations.put(methodKey, methDur);
+        }
+        methDur.addAndGet(duration);
     }
 }

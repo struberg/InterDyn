@@ -22,6 +22,7 @@ import javax.enterprise.inject.Typed;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * This class will be used as event to transport final monitor values
@@ -34,17 +35,22 @@ public class MonitorResultEvent
 
     private Map<String, AtomicInteger> classInvocations  = new HashMap<String, AtomicInteger>();
 
-    public MonitorResultEvent(Map<String, AtomicInteger> methodInvocations, Map<String, AtomicInteger> classInvocations)
+    private Map<String, AtomicLong> methodDurations = new HashMap<String, AtomicLong>();
+
+    public MonitorResultEvent(Map<String, AtomicInteger> methodInvocations,
+                              Map<String, AtomicInteger> classInvocations,
+                              Map<String, AtomicLong>    methodDurations)
     {
         this.methodInvocations = methodInvocations;
         this.classInvocations = classInvocations;
+        this.methodDurations = methodDurations;
     }
 
 
     /**
      * @return Map with Counters for all method invocations
      * key = fully qualified method name (includes class)
-     * value = Integer with value
+     * value = AtomicInteger with invocation count value
      */
     public Map<String, AtomicInteger> getMethodInvocations()
     {
@@ -54,10 +60,21 @@ public class MonitorResultEvent
     /**
      * @return Map with Counter for all class invocations
      * key = fully qualified class name
-     * value = Integer with value
+     * value = AtomicInteger with invocation count value
      */
     public Map<String, AtomicInteger> getClassInvocations()
     {
         return classInvocations;
+    }
+
+
+    /**
+     * @return Map with duration for all method invocations
+     * key = fully qualified method name (includes class)
+     * value = AtomicLong with duration nanos
+     */
+    public Map<String, AtomicLong> getMethodDurations()
+    {
+        return methodDurations;
     }
 }
