@@ -1,5 +1,17 @@
 JSR-299 Extension for enabling Interceptors Dynamically
 
+General
+----------
+
+InterDyn is a JSR-299 (CDI - Context and Dependency Injection for Java)
+Extension which allows adding Interceptors to CDI beans without having
+to put any extra annotation into the code.
+
+InvoMon is a simple CDI Interceptor which counts invocations of CDI beans
+and outputs the top results at the end of each request.
+
+
+
 Building
 ----------
 
