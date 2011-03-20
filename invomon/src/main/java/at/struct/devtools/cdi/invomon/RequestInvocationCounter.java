@@ -67,9 +67,9 @@ public class RequestInvocationCounter
 
     /**
      * increment the respective counters
-     * @param className
-     * @param methodName
-     * @param duration
+     * @param className the getName() of the class
+     * @param methodName the invoked methods name
+     * @param duration duration of the method invocation in nano time
      */
     public void count(String className, String methodName, long duration)
     {
