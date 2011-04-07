@@ -2,10 +2,15 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
+    <parent>
+        <groupId>at.struct.devtools.cdi.interdyn</groupId>
+        <artifactId>parent</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
     <groupId>at.struct.devtools.cdi.interdyn</groupId>
     <artifactId>interdyn</artifactId>
-    <version>1.0-SNAPSHOT</version>
-
+            E
     <name>InterDyn</name>
     <description>
         InterDyn is a JSR-299 Extension and can be used for dynamically
@@ -18,12 +23,6 @@
         <connection>scm:git:git://TODO</connection>
         <developerConnection>scm:git:TODO</developerConnection>
     </scm>
-
-    <properties>
-        <owb.version>1.1.0-SNAPSHOT</owb.version>
-        <extcdi.version>0.9.3</extcdi.version>
-    </properties>
-
 
     <dependencies>
         <dependency>

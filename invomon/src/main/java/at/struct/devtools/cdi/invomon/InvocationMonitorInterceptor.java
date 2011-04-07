@@ -22,13 +22,14 @@ import javax.inject.Inject;
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.Interceptor;
 import javax.interceptor.InvocationContext;
+import java.io.Serializable;
 
 /**
  * @author <a href="mailto:struberg@yahoo.de">Mark Struberg</a>
  */
 @Interceptor
 @InvocationMonitored
-public class InvocationMonitorInterceptor
+public class InvocationMonitorInterceptor implements Serializable
 {
     private @Inject RequestInvocationCounter requestInvocationCounter;
 
