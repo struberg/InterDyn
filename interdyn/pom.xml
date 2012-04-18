@@ -10,7 +10,6 @@
 
     <groupId>at.struct.devtools.cdi.interdyn</groupId>
     <artifactId>interdyn</artifactId>
-            E
     <name>InterDyn</name>
     <description>
         InterDyn is a JSR-299 Extension and can be used for dynamically
