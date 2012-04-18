@@ -17,8 +17,8 @@
      TODO cleanup poms. This was just a quick hack ...
 -->
     <properties>
-        <owb.version>1.1.0</owb.version>
-        <extcdi.version>0.9.4</extcdi.version>
+        <owb.version>1.1.4</owb.version>
+        <extcdi.version>1.0.5</extcdi.version>
     </properties>
 
     <modules>
