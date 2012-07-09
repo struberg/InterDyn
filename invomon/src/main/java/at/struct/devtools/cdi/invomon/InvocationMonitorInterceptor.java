@@ -34,7 +34,7 @@ public class InvocationMonitorInterceptor implements Serializable
     private @Inject RequestInvocationCounter requestInvocationCounter;
 
     @AroundInvoke
-    public Object authorize(InvocationContext ic) throws Exception
+    public Object track(InvocationContext ic) throws Exception
     {
         long start = System.nanoTime();
         Object retVal = ic.proceed();
