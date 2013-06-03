@@ -67,7 +67,7 @@ public class InvocationResultLogger
 
         StringBuilder sb = new StringBuilder();
         sb.append("Top Class Invocations:\n");
-        for (int i=1; i < maxLogLines && i< classInvocations.size(); i++)
+        for (int i=1; i < maxLogLines && i <= classInvocations.size(); i++)
         {
             ResultEntry re = classInvocations.get(classInvocations.size() - i);
             sb.append("  count: ").append(re.getCount()).append("\t").append(re.getToken()).append("\n");
@@ -76,7 +76,7 @@ public class InvocationResultLogger
 
         sb = new StringBuilder();
         sb.append("Top Method Invocations:\n");
-        for (int i=1; i < maxLogLines && i< methodInvocations.size(); i++)
+        for (int i=1; i < maxLogLines && i <= methodInvocations.size(); i++)
         {
             ResultEntry re = methodInvocations.get(methodInvocations.size() - i);
             sb.append("  dur[ms]: ").append(re.getDuration()/1e6f).append("\tcount: ").append(re.getCount()).append("\t").append(re.getToken()).append("\n");
