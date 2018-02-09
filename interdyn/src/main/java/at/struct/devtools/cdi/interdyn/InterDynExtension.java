@@ -18,7 +18,6 @@
  */
 package at.struct.devtools.cdi.interdyn;
 
-import org.apache.myfaces.extensions.cdi.core.api.tools.DefaultAnnotation;
 
 import javax.enterprise.event.Observes;
 import javax.enterprise.inject.spi.AnnotatedType;
