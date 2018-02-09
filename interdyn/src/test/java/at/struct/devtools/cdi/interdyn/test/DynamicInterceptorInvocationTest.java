@@ -19,38 +19,34 @@
 package at.struct.devtools.cdi.interdyn.test;
 
 import at.struct.devtools.cdi.interdyn.test.domainobjects.MyTestRequestBean;
-import org.apache.webbeans.cditest.CdiTestContainer;
-import org.apache.webbeans.cditest.CdiTestContainerLoader;
-import org.testng.Assert;
-import org.testng.annotations.Test;
+import org.apache.deltaspike.cdise.api.CdiContainerLoader;
+
+import org.apache.deltaspike.testcontrol.api.junit.CdiTestRunner;
+import org.junit.Assert;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+
+import javax.inject.Inject;
 
 /**
  * @author <a href="mailto:struberg@yahoo.de">Mark Struberg</a>
  */
+@RunWith(CdiTestRunner.class)
 public class DynamicInterceptorInvocationTest
 {
-    private CdiTestContainer containerStarter;
+
+    private @Inject MyTestRequestBean myRequestBean;
 
     @Test
     public void testInterceptorInvocation() throws Exception
     {
-        try
-        {
-            containerStarter = CdiTestContainerLoader.getCdiContainer();
-            containerStarter.bootContainer();
+        TestInterceptor.invocationCount = 0;
 
-            Assert.assertEquals(TestInterceptor.invocationCount, 0);
+        myRequestBean.setI(4711);
+        int i = myRequestBean.getI();
 
-            MyTestRequestBean myRequestBean = containerStarter.getInstance(MyTestRequestBean.class);
-            Assert.assertNotNull(myRequestBean);
+        Assert.assertEquals(4711, i);
 
-            int i = myRequestBean.getI();
-
-            Assert.assertEquals(TestInterceptor.invocationCount, 1);
-        }
-        finally
-        {
-            containerStarter.shutdownContainer();
-        }
+        Assert.assertEquals(2, TestInterceptor.invocationCount);
     }
 }

@@ -64,38 +64,23 @@
         </dependency>
 
         <dependency>
-            <groupId>org.testng</groupId>
-            <artifactId>testng</artifactId>
-            <version>5.14.10</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>junit</groupId>
-                    <artifactId>junit</artifactId>
-                </exclusion>
-            </exclusions>
+            <groupId>org.apache.deltaspike.modules</groupId>
+            <artifactId>deltaspike-test-control-module-api</artifactId>
+            <version>${deltaspike.version}</version>
             <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.openwebbeans.test</groupId>
-            <artifactId>cditest</artifactId>
-            <scope>test</scope>
-            <version>${owb.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.apache.openwebbeans.test</groupId>
-            <artifactId>cditest-owb</artifactId>
+            <groupId>org.apache.deltaspike.modules</groupId>
+            <artifactId>deltaspike-test-control-module-impl</artifactId>
+            <version>${deltaspike.version}</version>
             <scope>test</scope>
-            <version>${owb.version}</version>
         </dependency>
-
         <dependency>
-            <groupId>org.apache.geronimo.specs</groupId>
-            <artifactId>geronimo-servlet_2.5_spec</artifactId>
-            <version>1.2</version>
+            <groupId>org.apache.deltaspike.cdictrl</groupId>
+            <artifactId>deltaspike-cdictrl-owb</artifactId>
+            <version>${deltaspike.version}</version>
             <scope>test</scope>
         </dependency>
-
 
     </dependencies>
 </project>

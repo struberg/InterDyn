@@ -17,12 +17,21 @@
      TODO cleanup poms. This was just a quick hack ...
 -->
     <properties>
-        <owb.version>1.1.4</owb.version>
-        <extcdi.version>1.0.5</extcdi.version>
+        <owb.version>1.2.7</owb.version>
+        <deltaspike.version>1.8.1</deltaspike.version>
     </properties>
 
     <modules>
         <module>interdyn</module>
         <module>invomon</module>
     </modules>
+
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 </project>
