@@ -16,37 +16,32 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package at.struct.devtools.cdi.interdyn.test;
-
-import at.struct.devtools.cdi.interdyn.test.domainobjects.MyTestRequestBean;
-import org.apache.deltaspike.cdise.api.CdiContainerLoader;
-
-import org.apache.deltaspike.testcontrol.api.junit.CdiTestRunner;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+package net.struberg.devtools.cdi.invomon;
 
 import javax.inject.Inject;
+import javax.interceptor.AroundInvoke;
+import javax.interceptor.Interceptor;
+import javax.interceptor.InvocationContext;
+import java.io.Serializable;
 
 /**
  * @author <a href="mailto:struberg@yahoo.de">Mark Struberg</a>
  */
-@RunWith(CdiTestRunner.class)
-public class DynamicInterceptorInvocationTest
+@Interceptor
+@InvocationMonitored
+public class InvocationMonitorInterceptor implements Serializable
 {
+    private @Inject RequestInvocationCounter requestInvocationCounter;
 
-    private @Inject MyTestRequestBean myRequestBean;
-
-    @Test
-    public void testInterceptorInvocation() throws Exception
+    @AroundInvoke
+    public Object track(InvocationContext ic) throws Exception
     {
-        TestInterceptor.invocationCount = 0;
+        long start = System.nanoTime();
+        Object retVal = ic.proceed();
+        long end = System.nanoTime();
+        requestInvocationCounter.count(ic.getTarget().getClass().getName(), ic.getMethod().getName(), end - start);
 
-        myRequestBean.setI(4711);
-        int i = myRequestBean.getI();
-
-        Assert.assertEquals(4711, i);
-
-        Assert.assertEquals(2, TestInterceptor.invocationCount);
+        return retVal;
     }
+
 }

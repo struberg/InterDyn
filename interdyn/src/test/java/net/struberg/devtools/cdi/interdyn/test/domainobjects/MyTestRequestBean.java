@@ -16,25 +16,26 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package at.struct.devtools.cdi.interdyn.test;
+package net.struberg.devtools.cdi.interdyn.test.domainobjects;
 
-import javax.interceptor.AroundInvoke;
-import javax.interceptor.Interceptor;
-import javax.interceptor.InvocationContext;
+import javax.enterprise.context.RequestScoped;
 
 /**
  * @author <a href="mailto:struberg@yahoo.de">Mark Struberg</a>
  */
-@Interceptor
-@TestInterceptorAnnotation
-public class TestInterceptor
-{
-    public static int invocationCount = 0;
 
-    @AroundInvoke
-    public Object authorize(InvocationContext ic) throws Exception
+@RequestScoped
+public class MyTestRequestBean
+{
+    private int i;
+
+    public int getI()
     {
-        invocationCount++;
-        return ic.proceed();
+        return i;
+    }
+
+    public void setI(int i)
+    {
+        this.i = i;
     }
 }

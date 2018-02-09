@@ -16,15 +16,13 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package at.struct.devtools.cdi.invomon;
+package net.struberg.devtools.cdi.invomon;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;

@@ -1,5 +1,5 @@
 <beans>
     <interceptors>
-        <class>at.struct.devtools.cdi.interdyn.test.TestInterceptor</class>
+        <class>net.struberg.devtools.cdi.interdyn.test.TestInterceptor</class>
     </interceptors>
 </beans>

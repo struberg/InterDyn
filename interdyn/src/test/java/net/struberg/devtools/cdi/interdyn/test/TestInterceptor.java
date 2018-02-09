@@ -16,32 +16,25 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package at.struct.devtools.cdi.invomon;
+package net.struberg.devtools.cdi.interdyn.test;
 
-import javax.inject.Inject;
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.Interceptor;
 import javax.interceptor.InvocationContext;
-import java.io.Serializable;
 
 /**
  * @author <a href="mailto:struberg@yahoo.de">Mark Struberg</a>
  */
 @Interceptor
-@InvocationMonitored
-public class InvocationMonitorInterceptor implements Serializable
+@TestInterceptorAnnotation
+public class TestInterceptor
 {
-    private @Inject RequestInvocationCounter requestInvocationCounter;
+    public static int invocationCount = 0;
 
     @AroundInvoke
-    public Object track(InvocationContext ic) throws Exception
+    public Object authorize(InvocationContext ic) throws Exception
     {
-        long start = System.nanoTime();
-        Object retVal = ic.proceed();
-        long end = System.nanoTime();
-        requestInvocationCounter.count(ic.getTarget().getClass().getName(), ic.getMethod().getName(), end - start);
-
-        return retVal;
+        invocationCount++;
+        return ic.proceed();
     }
-
 }

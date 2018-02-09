@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package at.struct.devtools.cdi.interdyn.test;
+package net.struberg.devtools.cdi.invomon;
 
 import javax.interceptor.InterceptorBinding;
 import java.lang.annotation.ElementType;
@@ -26,13 +26,13 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Test interceptor binding annotation
+ * Use this annotation to mark a bean as being monitored.
  * @author <a href="mailto:struberg@yahoo.de">Mark Struberg</a>
  */
 @Inherited
 @InterceptorBinding
 @Target({ElementType.TYPE, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface TestInterceptorAnnotation
+public @interface InvocationMonitored
 {
 }

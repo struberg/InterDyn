@@ -1,2 +1,2 @@
 # register our interdyn extension
-at.struct.devtools.cdi.interdyn.InterDynExtension
+net.struberg.devtools.cdi.interdyn.InterDynExtension

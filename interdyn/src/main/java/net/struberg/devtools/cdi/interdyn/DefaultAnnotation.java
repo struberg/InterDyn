@@ -21,7 +21,7 @@
  * Just copied over to not have any runtime dependencies to another jar
  * just for one class.
  */
-package at.struct.devtools.cdi.interdyn;
+package net.struberg.devtools.cdi.interdyn;
 
 import java.io.Serializable;
 import java.lang.annotation.Annotation;

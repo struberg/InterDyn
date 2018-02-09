@@ -30,10 +30,10 @@ which contains something like the following content
 
 # start of interdyn.properties
 enabled=true
-rule.1.match=at.struct.devtools.cdi.interdyn.test.domainobjects.*
-rule.1.interceptor=at.struct.devtools.cdi.interdyn.test.TestInterceptorAnnotation
-rule.2.match=.*ServiceImpl
-rule.2.interceptor=at.struct.devtools.cdi.invomon.InvocationMonitored
+rule.1.match=.*ServiceImpl
+rule.1.interceptor=net.struberg.devtools.cdi.invomon.InvocationMonitored
+rule.2.match=net.struberg.devtools.cdi.interdyn.test.domainobjects.*
+rule.2.interceptor=TestInterceptorAnnotation
 #  end of interdyn.properties
 
 The match section contains the reg exp of the classes which should get intercepted
@@ -65,24 +65,24 @@ Example
 A sample output looks like the following:
 
 2011-03-19 12:36:27,291 [2046767960@qtp-1243908618-9]  INFO  invomon.InvocationResultLogger Top Class Invocations:
-  count: 51	at.struct.myproject.core.be.semester.SemesterRemoteServiceImpl
-  count: 21	at.struct.myproject.core.be.security.service.SecurityServiceImpl
-  count: 5	at.struct.myproject.util.be.config.ConfigServiceImpl
-  count: 2	at.struct.myproject.course.be.CourseServiceImpl
-  count: 1	at.struct.myproject.events.be.EventServiceImpl
-  count: 1	at.struct.myproject.core.be.persons.PersonRemoteServiceImpl
-  count: 1	at.struct.myproject.course.be.LecturerServiceImpl
-  count: 1	at.struct.myproject.events.be.EventRemoteServiceImpl
+  count: 51	net.struberg.myproject.core.be.semester.SemesterRemoteServiceImpl
+  count: 21	net.struberg.myproject.core.be.security.service.SecurityServiceImpl
+  count: 5	net.struberg.myproject.util.be.config.ConfigServiceImpl
+  count: 2	net.struberg.myproject.course.be.CourseServiceImpl
+  count: 1	net.struberg.myproject.events.be.EventServiceImpl
+  count: 1	net.struberg.myproject.core.be.persons.PersonRemoteServiceImpl
+  count: 1	net.struberg.myproject.course.be.LecturerServiceImpl
+  count: 1	net.struberg.myproject.events.be.EventRemoteServiceImpl
 
 2011-03-19 12:36:27,292 [2046767960@qtp-1243908618-9]  INFO  invomon.InvocationResultLogger Top Method Invocations:
-  dur[ms]: 442.48096	count: 1	at.struct.myproject.course.be.CourseServiceImpl#deleteCourse
-  dur[ms]: 349.34717	count: 1	at.struct.myproject.course.be.CourseServiceImpl#getByFilter
-  dur[ms]: 104.53423	count: 1	at.struct.myproject.events.be.EventRemoteServiceImpl#getEvent
-  dur[ms]: 100.43162	count: 1	at.struct.myproject.events.be.EventServiceImpl#getEvent
-  dur[ms]: 24.677048	count: 1	at.struct.myproject.course.be.LecturerServiceImpl#getEmployeeIdsInvolvedInOrgUnitCourses
-  dur[ms]: 1.596834	count: 1	at.struct.myproject.core.be.persons.PersonRemoteServiceImpl#getByEmployeeIdList
-  dur[ms]: 0.892522	count: 51	at.struct.myproject.core.be.semester.SemesterRemoteServiceImpl#getCorrespondingSemesterCode
-  dur[ms]: 0.288455	count: 5	at.struct.myproject.util.be.config.ConfigServiceImpl#getStringProperty
-  dur[ms]: 0.248038	count: 3	at.struct.myproject.core.be.security.service.SecurityServiceImpl#isGranted
-  dur[ms]: 0.203102	count: 18	at.struct.myproject.core.be.security.service.SecurityServiceImpl#isAuthenticated
+  dur[ms]: 442.48096	count: 1	net.struberg.myproject.course.be.CourseServiceImpl#deleteCourse
+  dur[ms]: 349.34717	count: 1	net.struberg.myproject.course.be.CourseServiceImpl#getByFilter
+  dur[ms]: 104.53423	count: 1	net.struberg.myproject.events.be.EventRemoteServiceImpl#getEvent
+  dur[ms]: 100.43162	count: 1	net.struberg.myproject.events.be.EventServiceImpl#getEvent
+  dur[ms]: 24.677048	count: 1	net.struberg.myproject.course.be.LecturerServiceImpl#getEmployeeIdsInvolvedInOrgUnitCourses
+  dur[ms]: 1.596834	count: 1	net.struberg.myproject.core.be.persons.PersonRemoteServiceImpl#getByEmployeeIdList
+  dur[ms]: 0.892522	count: 51	net.struberg.myproject.core.be.semester.SemesterRemoteServiceImpl#getCorrespondingSemesterCode
+  dur[ms]: 0.288455	count: 5	net.struberg.myproject.util.be.config.ConfigServiceImpl#getStringProperty
+  dur[ms]: 0.248038	count: 3	net.struberg.myproject.core.be.security.service.SecurityServiceImpl#isGranted
+  dur[ms]: 0.203102	count: 18	net.struberg.myproject.core.be.security.service.SecurityServiceImpl#isAuthenticated
 

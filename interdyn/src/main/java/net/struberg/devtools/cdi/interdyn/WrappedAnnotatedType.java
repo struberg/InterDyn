@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package at.struct.devtools.cdi.interdyn;
+package net.struberg.devtools.cdi.interdyn;
 
 import javax.enterprise.inject.spi.AnnotatedType;
 import java.lang.annotation.Annotation;

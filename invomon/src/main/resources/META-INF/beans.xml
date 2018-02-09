@@ -1,5 +1,5 @@
 <beans>
     <interceptors>
-        <class>at.struct.devtools.cdi.invomon.InvocationMonitorInterceptor</class>
+        <class>net.struberg.devtools.cdi.invomon.InvocationMonitorInterceptor</class>
     </interceptors>
 </beans>

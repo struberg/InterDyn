@@ -16,26 +16,36 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package at.struct.devtools.cdi.interdyn.test.domainobjects;
+package net.struberg.devtools.cdi.interdyn.test;
 
-import javax.enterprise.context.RequestScoped;
+import net.struberg.devtools.cdi.interdyn.test.domainobjects.MyTestRequestBean;
+
+import org.apache.deltaspike.testcontrol.api.junit.CdiTestRunner;
+import org.junit.Assert;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+
+import javax.inject.Inject;
 
 /**
  * @author <a href="mailto:struberg@yahoo.de">Mark Struberg</a>
  */
-
-@RequestScoped
-public class MyTestRequestBean
+@RunWith(CdiTestRunner.class)
+public class DynamicInterceptorInvocationTest
 {
-    private int i;
 
-    public int getI()
-    {
-        return i;
-    }
+    private @Inject MyTestRequestBean myRequestBean;
 
-    public void setI(int i)
+    @Test
+    public void testInterceptorInvocation() throws Exception
     {
-        this.i = i;
+        TestInterceptor.invocationCount = 0;
+
+        myRequestBean.setI(4711);
+        int i = myRequestBean.getI();
+
+        Assert.assertEquals(4711, i);
+
+        Assert.assertEquals(2, TestInterceptor.invocationCount);
     }
 }

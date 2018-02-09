@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package at.struct.devtools.cdi.invomon;
+package net.struberg.devtools.cdi.invomon;
 
 import javax.annotation.PreDestroy;
 import javax.enterprise.context.RequestScoped;

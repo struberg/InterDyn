@@ -16,14 +16,13 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package at.struct.devtools.cdi.interdyn;
+package net.struberg.devtools.cdi.interdyn;
 
 
 import javax.enterprise.event.Observes;
 import javax.enterprise.inject.spi.AnnotatedType;
 import javax.enterprise.inject.spi.Extension;
 import javax.enterprise.inject.spi.ProcessAnnotatedType;
-import javax.inject.Inject;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.annotation.Annotation;

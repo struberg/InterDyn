@@ -16,34 +16,23 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package at.struct.devtools.cdi.interdyn;
+package net.struberg.devtools.cdi.interdyn.test;
 
-
-import java.lang.annotation.Annotation;
+import javax.interceptor.InterceptorBinding;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Inherited;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
- * Contains a mapping between a rule and the name of the interceptor annotation
+ * Test interceptor binding annotation
  * @author <a href="mailto:struberg@yahoo.de">Mark Struberg</a>
  */
-
-public class InterceptorRule
+@Inherited
+@InterceptorBinding
+@Target({ElementType.TYPE, ElementType.METHOD})
+@Retention(RetentionPolicy.RUNTIME)
+public @interface TestInterceptorAnnotation
 {
-    private String rule;
-    private Annotation interceptorBinding;
-
-    public InterceptorRule(String rule, Annotation interceptorBinding)
-    {
-        this.rule = rule;
-        this.interceptorBinding = interceptorBinding;
-    }
-
-    public String getRule()
-    {
-        return rule;
-    }
-
-    public Annotation getInterceptorBinding()
-    {
-        return interceptorBinding;
-    }
 }
