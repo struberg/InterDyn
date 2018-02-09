@@ -13,9 +13,6 @@
         <developerConnection>scm:git:git://git@github.com:struberg/InterDyn.git</developerConnection>
     </scm>
 
-<!--
-     TODO cleanup poms. This was just a quick hack ...
--->
     <properties>
         <owb.version>1.2.7</owb.version>
         <deltaspike.version>1.8.1</deltaspike.version>
